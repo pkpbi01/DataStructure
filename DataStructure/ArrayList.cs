@@ -21,6 +21,8 @@ namespace DataStructure
             Lenght = 0;
         }
 
+
+
         public void AddToEnd(int value)
         {
             if (_TrueLenght <= Lenght)
@@ -33,7 +35,7 @@ namespace DataStructure
 
         public void AddToBiginning(int value)
         {
-            if (_TrueLenght <= Lenght)
+            if (_TrueLenght <= Lenght+1)
             {
                 IncreaseLenght();
             }
@@ -59,6 +61,160 @@ namespace DataStructure
             Lenght++;
         }
 
+        public void DeleteFromEnd()
+        {
+            if (_TrueLenght > 2 * Lenght - 1)
+            {
+                DicreaseLenght();
+            }
+            Lenght--;
+        }
+
+        public void DeleteFromBiginning()
+        {
+            if (_TrueLenght > 2 * Lenght - 1)
+            {
+                DicreaseLenght();
+            }
+            for(int i =0; i<Lenght-1; i++)
+            {
+                _array[i] = _array[i + 1];
+            }
+            Lenght--;
+        }
+
+        public void DeleteFrom(int idx)
+        {
+            if (_TrueLenght > 2 * Lenght - 1)
+            {
+                DicreaseLenght();
+            }
+            for (int i = idx; i < Lenght; i++)
+            {
+                _array[i] = _array[i + 1];
+            }
+            Lenght--;
+        }
+
+        public int GetLenght()
+        {
+            return Lenght;
+        }
+
+        public int GetByIndex(int idx)
+        {
+            if (idx < Lenght)
+            {
+                return _array[idx];
+            }
+            throw new Exception("Index is out of the rage");
+        }
+
+        public int GetIndexByValue(int value)
+        {
+            for (int i =0; i<Lenght; i++)
+            {
+                if (_array[i] == value)
+                {
+                    return i;
+                }
+            }
+            throw new Exception("List don't contan element with this value");
+        }
+
+
+
+        public ArrayList ReversList()
+        {
+            ArrayList newList = new ArrayList();
+            for (int i = 0; i < Lenght; i++)
+            {
+                newList.AddToBiginning(_array[i]);
+            }
+            return newList;
+        }
+
+        public ArrayList CopyList()
+        {
+            ArrayList newList = new ArrayList();
+            for (int i = 0; i < Lenght; i++)
+            {
+                newList.AddToEnd(_array[i]);
+            }
+            return newList;
+        }
+
+
+
+        public int GetMaxElement()
+        {
+            int max = _array[0];
+            for(int i = 1; i < Lenght; i++)
+            {
+                if (_array[i] > max)
+                {
+                    max = _array[i];
+                }
+            }
+            return max;
+        }
+
+        public int GetMinElement()
+        {
+            int min = _array[0];
+            for (int i = 1; i < Lenght; i++)
+            {
+                if (_array[i] < min)
+                {
+                    min = _array[i];
+                }
+            }
+            return min;
+        }
+
+        public int GetIndexOfMaxElement()
+        {
+            int idx = 0;
+            int max = _array[0];
+            for (int i = 1; i < Lenght; i++)
+            {
+                if (_array[i] > max)
+                {
+                    max = _array[i];
+                    idx = i;
+                }
+            }
+            return idx;
+        }
+
+        public int GetIndexOfMinElement()
+        {
+            int idx = 0;
+            int min = _array[0];
+            for (int i = 1; i < Lenght; i++)
+            {
+                if (_array[i] < min)
+                {
+                    min = _array[i];
+                    idx = i;
+                }
+            }
+            return idx;
+        }
+
+        public ArrayList QuickSort()
+        {
+            ArrayList newList = CopyList();
+            return QuickSort(newList, 0, newList.Lenght - 1);
+        }
+
+        public ArrayList QuickSortDecrease()
+        {
+            ArrayList newList = CopyList();
+            QuickSort(newList, 0, newList.Lenght - 1);
+            return newList.ReversList();
+        }
+
         public void PrintList()
         {
             for(int i = 0; i < Lenght; i++)
@@ -82,6 +238,57 @@ namespace DataStructure
 
             _array = newArray;
         }
+
+        private void DicreaseLenght()
+        {
+            int newLenght = _TrueLenght;
+            while (newLenght > 2 * Lenght-1)
+            {
+                newLenght = (int)(newLenght * 0.66 + 1);
+            }
+
+            int[] newArray = new int[newLenght];
+            Array.Copy(_array, newArray, newLenght);
+
+            _array = newArray;
+        }
+
+        static private void Swap(ref int x, ref int y)
+        {
+            int t = x;
+            x = y;
+            y = t;
+        }
+
+        private int Partition(int minIndex, int maxIndex)
+        {
+            int pivot = minIndex - 1;
+            for(int i = minIndex; i < maxIndex; i++)
+            {
+                if (_array[i] < _array[maxIndex])
+                {
+                    pivot++;
+                    Swap(ref _array[pivot], ref _array[i]);
+                }
+            }
+            pivot++;
+            Swap(ref _array[pivot], ref _array[maxIndex]);
+            return pivot;
+        }
+
+        private ArrayList QuickSort(ArrayList list, int minIndex, int maxIndex)
+        {
+            if (minIndex >= maxIndex)
+            {
+                return list;
+            }
+            int pivotIndex = list.Partition(minIndex, maxIndex);
+            list.QuickSort(list, minIndex, pivotIndex - 1);
+            list.QuickSort(list, pivotIndex + 1, maxIndex);
+
+            return list;
+        }
+
 
         public override bool Equals(object obj)
         {
