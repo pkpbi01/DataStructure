@@ -81,9 +81,16 @@ namespace DataStructure
             {
                 IncreaseLenght();
             }
-            for (int i = Lenght-1; i >= idx; i--)
+            if (Lenght != 0)
             {
-                _array[i + 1] = _array[i];
+                if (idx >= Lenght || idx < 0)
+                {
+                throw new IndexOutOfRangeException();
+                }
+                for (int i = Lenght-1; i >= idx; i--)
+                {
+                    _array[i + 1] = _array[i];
+                }
             }
             _array[idx] = value;
             Lenght++;
@@ -113,7 +120,11 @@ namespace DataStructure
 
         public void DeleteFrom(int idx)
         {
-            for (int i = idx; i < Lenght; i++)
+            if (idx >= Lenght || idx < 0) 
+            {
+                throw new IndexOutOfRangeException();
+            }
+            for (int i = idx; i < Lenght-1; i++)
             {
                 _array[i] = _array[i + 1];
             }
@@ -131,11 +142,12 @@ namespace DataStructure
 
         public int GetByIndex(int idx)
         {
-            if (idx < Lenght)
+
+            if (idx >= Lenght || idx < 0)
             {
-                return _array[idx];
+                throw new IndexOutOfRangeException();
             }
-            throw new Exception("Index is out of the rage");
+            return _array[idx];
         }
 
         public int GetIndexByValue(int value)
@@ -147,19 +159,19 @@ namespace DataStructure
                     return i;
                 }
             }
-            throw new Exception("List don't contan element with this value");
+            throw new ArgumentException();
         }
 
 
 
-        public ArrayList ReversList()
+        public void ReversList()
         {
             ArrayList newList = new ArrayList();
             for (int i = 0; i < Lenght; i++)
             {
                 newList.AddToBiginning(_array[i]);
             }
-            return newList;
+            _array = newList._array;
         }
 
         public ArrayList CopyList()
@@ -268,7 +280,7 @@ namespace DataStructure
             Lenght--;
         }
 
-        public void DeleteElementsWithValue(int value)
+        public void DeleteElementsWithValue(int value)//---------------
         {
             int idx = 0;
             int supportLenght = Lenght;
@@ -367,8 +379,17 @@ namespace DataStructure
                 DicreaseLenght();
             }
         }
-        public void DeleteNElmentsFrom(int idx, int number)
+        public void DeleteNElementsFrom(int idx, int number)
         {
+            if (idx > Lenght || idx < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (number + idx > Lenght || number < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             for (int i = idx; i < Lenght - number; i++)
             {
                 _array[i] = _array[i + number];
