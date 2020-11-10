@@ -351,6 +351,35 @@ namespace DataStructure
             }
         }
 
+        public void DeleteNElementsFromBiginning(int number)
+        {
+            if (number > Lenght || number < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+                for (int i = 0; i < Lenght - number; i++)
+                {
+                    _array[i] = _array[i + number];
+                }
+            Lenght -= number;
+            if (_TrueLenght > 2 * Lenght - 1)
+            {
+                DicreaseLenght();
+            }
+        }
+        public void DeleteNElmentsFrom(int idx, int number)
+        {
+            for (int i = idx; i < Lenght - number; i++)
+            {
+                _array[i] = _array[i + number];
+            }
+            Lenght-= number;
+
+            if (_TrueLenght > 2 * Lenght - 1)
+            {
+                DicreaseLenght();
+            }
+        }
 
         public void PrintList()
         {
@@ -381,11 +410,17 @@ namespace DataStructure
         private void DicreaseLenght()
         {
             int newLenght = _TrueLenght;
-            while (newLenght > 2 * (Lenght-1))
+            if (Lenght > 0)
             {
-                newLenght = (int)(newLenght * 0.66 + 1);
+                while (newLenght > 2 * (Lenght))
+                {
+                    newLenght = (int)(newLenght * 0.66 + 1);
+                }
             }
-
+            else
+            {
+                newLenght = 3;
+            }
             int[] newArray = new int[newLenght];
             Array.Copy(_array, newArray, newLenght);
 

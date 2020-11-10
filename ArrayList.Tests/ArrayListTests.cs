@@ -80,9 +80,12 @@ namespace ArrayList.Tests
             Assert.Throws<IndexOutOfRangeException>(() => actual.AddArrayTo(idx, addedArray));
         }
 
+
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 1, 2, 3, 4 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 5, new int[] { 1, 2 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, new int[0] {})]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 6, new int[] { 1 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, new int[] { })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
         public void DeleteNElementsFromEndTest(int[] array, int number, int[] expectedArray)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
@@ -92,6 +95,7 @@ namespace ArrayList.Tests
             Assert.AreEqual(expected, actual);
         }
 
+
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 8)]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000)]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8)]
@@ -99,6 +103,41 @@ namespace ArrayList.Tests
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
             Assert.Throws<ArgumentOutOfRangeException> (() => actual.DeleteNElementsFromEnd(number));
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1, new int[] { 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 6, new int[] { 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, new int[] { })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        public void DeleteNElementsFromBiginning(int[] array, int number, int[] expectedArray)
+        {
+            DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
+            actual.DeleteNElementsFromBiginning(number);
+            DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 8)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8)]
+        public void DeleteNElementsFromEndNegativeNegativTest(int[] array, int number)
+        {
+            DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
+            Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteNElementsFromBiginning(number));
+        }
+
+         
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 },0, 3, new int[] { 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 3, new int[] { 1, 2, 3, 4 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+
+        public void DeleteNElmentsFromTest(int[] array, int idx, int number, int[] expectedArray)
+        {
+            DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
+            actual.DeleteNElmentsFrom(idx, number);
+            DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
+            Assert.AreEqual(expected, actual);
         }
     }
 }
