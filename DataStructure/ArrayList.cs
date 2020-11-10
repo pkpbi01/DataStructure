@@ -91,37 +91,37 @@ namespace DataStructure
 
         public void DeleteFromEnd()
         {
+            Lenght--;
             if (_TrueLenght > 2 * Lenght - 1)
             {
                 DicreaseLenght();
             }
-            Lenght--;
         }
 
         public void DeleteFromBiginning()
         {
-            if (_TrueLenght > 2 * Lenght - 1)
-            {
-                DicreaseLenght();
-            }
             for(int i =0; i<Lenght-1; i++)
             {
                 _array[i] = _array[i + 1];
             }
             Lenght--;
-        }
-
-        public void DeleteFrom(int idx)
-        {
             if (_TrueLenght > 2 * Lenght - 1)
             {
                 DicreaseLenght();
             }
+        }
+
+        public void DeleteFrom(int idx)
+        {
             for (int i = idx; i < Lenght; i++)
             {
                 _array[i] = _array[i + 1];
             }
             Lenght--;
+            if (_TrueLenght > 2 * Lenght - 1)
+            {
+                DicreaseLenght();
+            }
         }
 
         public int GetLenght()
@@ -336,6 +336,19 @@ namespace DataStructure
                 _array[i + idx] = array[i];
             }
             Lenght += array.Length;
+        }
+
+        public void DeleteNElementsFromEnd(int number)
+        {
+            if (number > Lenght || number < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            Lenght -= number;
+            if (_TrueLenght > 2 * Lenght - 1)
+            {
+                DicreaseLenght();
+            }
         }
 
 
