@@ -7,41 +7,25 @@ namespace ArrayList.Tests
 {
     class ArrayListTest
     {
-        DataStructure.ArrayList listMock;
-        DataStructure.ArrayList expectedMock;
-       
-        public void GetMock(int n)
+        [TestCase(new int[] { 1, 2, 3 }, 5, 8)]
+        [TestCase(new int[] { 1, 2, 3 }, -5, 8)]
+        [TestCase(new int[] { 1, 2, 3 }, 5000, 8)]
+        public void SetByIndexTest(int[] array, int idx, int newValue)
         {
-            switch(n)
-            {
-                case 1:
-                    listMock = new DataStructure.ArrayList();
-                    listMock.AddToEnd(-5);
-                    listMock.AddToEnd(3);
-                    listMock.AddToEnd(0);
-                    listMock.AddToEnd(8);
-                    listMock.AddToEnd(-1);
-
-                    expectedMock = new DataStructure.ArrayList();
-                    expectedMock.AddToEnd(-5);
-                    expectedMock.AddToEnd(-1);
-                    expectedMock.AddToEnd(0);
-                    expectedMock.AddToEnd(3);
-                    expectedMock.AddToEnd(8);
-                    break;
-            }
+            DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
+            Assert.Throws<IndexOutOfRangeException>(() => actual[idx] = newValue);
         }
 
-        [TestCase(1)]
-        public void QuickSortTest(int n)
+        [TestCase(new int[] { 2, 1, 3 }, new int[] { 1, 2, 3 })]
+        public void QuickSortTest(int[] array, int[] expectedArray)
         {
-            GetMock(n);
-            DataStructure.ArrayList list = listMock;
-            DataStructure.ArrayList expected = expectedMock;
-            DataStructure.ArrayList actual = list.QuickSort();
+            DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
+            DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
+            actual.QuickSort();
             Assert.AreEqual(expected, actual);
             
         }
+
 
         [TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] {18, 36, -13, 6, 15})]
         [TestCase(new int[] { 18, 36 }, new int[] {-13, 6, 15, 66, -3589 }, new int[] { 18, 36, -13, 6, 15, 66, -3589 })]
@@ -57,6 +41,7 @@ namespace ArrayList.Tests
 
         }
 
+
         [TestCase(new int[] {4, 5, 6, 7}, new int[] {1, 2, 3 }, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
         [TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
         [TestCase(new int[] { }, new int[] { }, new int[] { })]
@@ -68,6 +53,31 @@ namespace ArrayList.Tests
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
 
             Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestCase(new int[] { }, 0, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
+        [TestCase(new int[] {1, 2, 3 }, 1, new int[] { 4, 5, 6 }, new int[] { 1, 4, 5, 6, 2, 3 })]
+        [TestCase(new int[] { }, 0, new int[] { }, new int[] { })]
+        [TestCase(new int[] { 18, 36, -13, 6 }, 2, new int[] { }, new int[] { 18, 36, -13, 6 })]
+        [TestCase(new int[] { 18, 36, -13, 6 }, 0, new int[] { }, new int[] { 18, 36, -13, 6 })]
+        public void AddArrayToTest(int[] array, int idx, int[] addedArray, int[] expectedArray)
+        {
+            DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
+            actual.AddArrayTo(idx, addedArray);
+            DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
+
+            Assert.AreEqual(expected, actual);
+        }
+        [TestCase(new int[] { }, -1, new int[] { 18, 36, -13, 6, 15 })]
+        [TestCase(new int[] { 1, 2, 3 }, 3, new int[] { 4, 5, 6 })]
+        [TestCase(new int[] { 1, 2, 3 }, 400, new int[] { 4, 5, 6 })]
+        public void AddArrayToNegativTest(int[] array, int idx, int[] addedArray)
+        {
+            DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
+            //DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
+            //actual.AddArrayTo(idx, addedArray);
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddArrayTo(idx, addedArray));
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ConsoleApp
             list.AddToEnd(4);
             list.AddToEnd(4);
             list.AddToEnd(4);
-            list.PrintList();
+            list.PrintList();            
             Console.WriteLine();
 
             list.DeleteElementsWithValue(4);

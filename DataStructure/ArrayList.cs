@@ -81,7 +81,7 @@ namespace DataStructure
             {
                 IncreaseLenght();
             }
-            for (int i = Lenght; i >= idx; i--)
+            for (int i = Lenght-1; i >= idx; i--)
             {
                 _array[i + 1] = _array[i];
             }
@@ -230,17 +230,19 @@ namespace DataStructure
             return idx;
         }
 
-        public ArrayList QuickSort()
+        public void QuickSort()
         {
             ArrayList newList = CopyList();
-            return QuickSort(newList, 0, newList.Lenght - 1);
+            newList = QuickSort(newList, 0, newList.Lenght - 1);
+            _array = newList._array;
         }
 
-        public ArrayList QuickSortDecrease()
+        public void QuickSortDecrease()
         {
             ArrayList newList = CopyList();
-            QuickSort(newList, 0, newList.Lenght - 1);
-            return newList.ReversList();
+            newList = QuickSort(newList, 0, newList.Lenght - 1);
+            newList.ReversList();
+            _array = newList._array;
         }
 
 
@@ -304,13 +306,34 @@ namespace DataStructure
             {
                 IncreaseLenght(array.Length);
             }
-            for (int i = Lenght; i>=0; i--)
+            for (int i = Lenght-1; i>=0; i--)
             {
                 _array[i + array.Length] = _array[i];
             }
             for (int i = 0; i<array.Length; i++)
             {
                 _array[i] = array[i];
+            }
+            Lenght += array.Length;
+        }
+
+        public void AddArrayTo(int idx, int[] array)
+        {
+            if (_TrueLenght <= Lenght + array.Length)
+            {
+                IncreaseLenght(array.Length);
+            }
+            if ((idx >= Lenght || idx < 0) && idx != 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            for (int i = Lenght-1; i >= idx; i--)
+            {
+                _array[i + array.Length] = _array[i];
+            }
+            for (int i = 0; i < array.Length; i++)
+            {
+                _array[i + idx] = array[i];
             }
             Lenght += array.Length;
         }
