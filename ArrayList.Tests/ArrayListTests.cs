@@ -46,7 +46,7 @@ namespace ArrayList.Tests
         [TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] {18, 36, -13, 6, 15})]
         [TestCase(new int[] { 18, 36 }, new int[] {-13, 6, 15, 66, -3589 }, new int[] { 18, 36, -13, 6, 15, 66, -3589 })]
         [TestCase(new int[] { }, new int[] {}, new int[] {})]
-        [TestCase(new int[] { 18, 36, -13, 6 }, new int[] { 15 }, new int[] { 18, 36, -13, 6, 15 })]
+        [TestCase(new int[] { 18, 36, -13, 6 }, new int[] {}, new int[] { 18, 36, -13, 6 })]
         public void AddArrayToEndTest(int[] array ,int[] addedArray, int[] expectedArray)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
@@ -57,5 +57,17 @@ namespace ArrayList.Tests
 
         }
 
+        [TestCase(new int[] {4, 5, 6, 7}, new int[] {1, 2, 3 }, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
+        [TestCase(new int[] { }, new int[] { }, new int[] { })]
+        [TestCase(new int[] { 18, 36, -13, 6 }, new int[] { }, new int[] { 18, 36, -13, 6 })]
+        public void AddArrayToBiginningTest(int[] array, int[] addedArray, int[] expectedArray)
+        {
+            DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
+            actual.AddArrayToBiginning(addedArray);
+            DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

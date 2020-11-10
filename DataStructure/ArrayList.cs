@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace DataStructure
 {
@@ -297,7 +298,22 @@ namespace DataStructure
             }
         }
 
-
+        public void AddArrayToBiginning(int[] array)
+        {
+            if (_TrueLenght <= Lenght + array.Length)
+            {
+                IncreaseLenght(array.Length);
+            }
+            for (int i = Lenght; i>=0; i--)
+            {
+                _array[i + array.Length] = _array[i];
+            }
+            for (int i = 0; i<array.Length; i++)
+            {
+                _array[i] = array[i];
+            }
+            Lenght += array.Length;
+        }
 
 
         public void PrintList()
@@ -310,7 +326,7 @@ namespace DataStructure
 
 
 
-
+       
 
         private void IncreaseLenght(int number = 1)
         {
@@ -393,6 +409,11 @@ namespace DataStructure
                 }
             }
             return true;
+        }
+
+        public override string ToString()
+        {
+            return string.Join(";", _array.Take(Lenght));
         }
     }
 }
