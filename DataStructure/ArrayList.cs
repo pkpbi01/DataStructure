@@ -21,6 +21,33 @@ namespace DataStructure
             Lenght = 0;
         }
 
+        public ArrayList(int[] array)
+        {
+            _array = new int[(int)(array.Length * 1.33d)];
+            Lenght = array.Length;
+            Array.Copy(array, _array, array.Length);
+        }
+
+        public int this[int i]//---------------------------
+        {
+            get
+            {
+                if (i >= Lenght || i < 0)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                return _array[i];
+            }
+            set
+            {
+                if (i >= Lenght || i < 0)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                _array[i] = value;
+            }
+        }
+
 
 
         public void AddToEnd(int value)
@@ -215,6 +242,64 @@ namespace DataStructure
             return newList.ReversList();
         }
 
+
+        public void DeleteFirstElementWithValue(int value)
+        {
+            int idx = 0;
+            for (int i = 0; i < Lenght; i++)
+            {
+                if (_array[i] == value)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+            if (_TrueLenght > 2 * Lenght - 1)
+            {
+                DicreaseLenght();
+            }
+            for (int i = idx; i < Lenght-1; i++)
+            {
+                _array[i] = _array[i + 1];
+            }
+            Lenght--;
+        }
+
+        public void DeleteElementsWithValue(int value)
+        {
+            int idx = 0;
+            int supportLenght = Lenght;
+            for (int i = 0; i < supportLenght; i++)
+            {
+                if (_array[i] == value)
+                {
+                    idx = i;
+                    if (_TrueLenght > 2 * Lenght - 1)
+                    {
+                        DicreaseLenght();
+                        supportLenght = (int)(supportLenght * 0.66 + 1);//----------------------------------
+                    }
+                    for (int j = idx; j < Lenght - 1; j++)
+                    {
+                        _array[j] = _array[j + 1];
+                    }
+                    Lenght--;
+                }
+            }
+
+        }
+
+        public void AddArrayToEnd(int[] array)
+        {
+            for (int i = 0; i <array.Length; i++)
+            {
+                AddToEnd(array[i]);
+            }
+        }
+
+
+
+
         public void PrintList()
         {
             for(int i = 0; i < Lenght; i++)
@@ -222,6 +307,8 @@ namespace DataStructure
                 Console.Write($"{_array[i]} ");
             }
         }
+
+
 
 
 
@@ -242,7 +329,7 @@ namespace DataStructure
         private void DicreaseLenght()
         {
             int newLenght = _TrueLenght;
-            while (newLenght > 2 * Lenght-1)
+            while (newLenght > 2 * (Lenght-1))
             {
                 newLenght = (int)(newLenght * 0.66 + 1);
             }
@@ -298,14 +385,11 @@ namespace DataStructure
             {
                 return false;
             }
-            else
+            for (int i = 0; i < Lenght; i++)
             {
-                for (int i = 0; i < Lenght; i++)
+                if (_array[i] != arrayList._array[i])
                 {
-                    if (_array[i] != arrayList._array[i])
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;
