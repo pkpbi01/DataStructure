@@ -29,7 +29,14 @@ namespace DataStructure
             Array.Copy(array, _array, array.Length);
         }
 
-        public int this[int i]//---------------------------
+        public ArrayList(int value)
+        {
+            _array = new int[9];
+            _array[0] = value;
+            Lenght = 1;
+        }
+
+        public int this[int i]
         {
             get
             {
@@ -98,16 +105,24 @@ namespace DataStructure
 
         public void DeleteFromEnd()
         {
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
             Lenght--;
             if (_TrueLenght > 2 * Lenght - 1)
             {
                 DicreaseLenght();
             }
-        }
+        }//---
 
         public void DeleteFromBiginning()
         {
-            for(int i =0; i<Lenght-1; i++)
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            for (int i =0; i<Lenght-1; i++)
             {
                 _array[i] = _array[i + 1];
             }
@@ -116,7 +131,7 @@ namespace DataStructure
             {
                 DicreaseLenght();
             }
-        }
+        }//---
 
         public void DeleteFrom(int idx)
         {
@@ -162,8 +177,6 @@ namespace DataStructure
             throw new ArgumentException();
         }
 
-
-
         public void ReversList()
         {
             ArrayList newList = new ArrayList();
@@ -188,6 +201,11 @@ namespace DataStructure
 
         public int GetMaxElement()
         {
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
             int max = _array[0];
             for(int i = 1; i < Lenght; i++)
             {
@@ -197,10 +215,14 @@ namespace DataStructure
                 }
             }
             return max;
-        }
+        }//---
 
         public int GetMinElement()
         {
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
             int min = _array[0];
             for (int i = 1; i < Lenght; i++)
             {
@@ -210,10 +232,14 @@ namespace DataStructure
                 }
             }
             return min;
-        }
+        }//---
 
         public int GetIndexOfMaxElement()
         {
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
             int idx = 0;
             int max = _array[0];
             for (int i = 1; i < Lenght; i++)
@@ -225,10 +251,14 @@ namespace DataStructure
                 }
             }
             return idx;
-        }
+        }//---
 
         public int GetIndexOfMinElement()
         {
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
             int idx = 0;
             int min = _array[0];
             for (int i = 1; i < Lenght; i++)
@@ -240,7 +270,7 @@ namespace DataStructure
                 }
             }
             return idx;
-        }
+        }//---
 
         public void QuickSort()
         {
@@ -280,32 +310,42 @@ namespace DataStructure
             Lenght--;
         }
 
-        public void DeleteElementsWithValue(int value)//---------------
+        public void DeleteElementsWithValue(int value)
         {
-            int idx = 0;
-            int supportLenght = Lenght;
-            for (int i = 0; i < supportLenght; i++)
+            for (int i = 1; i < Lenght; i++)
             {
                 if (_array[i] == value)
                 {
-                    idx = i;
+                    
                     if (_TrueLenght > 2 * Lenght - 1)
                     {
                         DicreaseLenght();
-                        supportLenght = (int)(supportLenght * 0.66 + 1);//----------------------------------
                     }
-                    for (int j = idx; j < Lenght - 1; j++)
+                    for (int j = i; j < Lenght - 1; j++)
                     {
                         _array[j] = _array[j + 1];
                     }
+                    i--;
                     Lenght--;
                 }
             }
-
+            if (_array[0] == value)
+            {
+                if (_TrueLenght <= Lenght)
+                {
+                    IncreaseLenght();
+                }
+                _array[0] = _array[1];
+                Lenght--;
+            }
         }
 
         public void AddArrayToEnd(int[] array)
         {
+            if (_TrueLenght <= Lenght + array.Length)
+            {
+                IncreaseLenght(array.Length);
+            }
             for (int i = 0; i <array.Length; i++)
             {
                 AddToEnd(array[i]);
@@ -379,6 +419,8 @@ namespace DataStructure
                 DicreaseLenght();
             }
         }
+
+
         public void DeleteNElementsFrom(int idx, int number)
         {
             if (idx > Lenght || idx < 0)
