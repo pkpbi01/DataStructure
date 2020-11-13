@@ -263,6 +263,46 @@ namespace ArrayList.Tests
 
         }
 
+        [TestCase(new int[] { 2, 1, 3 }, new int[] { 3, 2, 1 })]
+        [TestCase(new int[] { 582, 1, 3, 4, 5 }, new int[] { 582, 5, 4, 3, 1 })]
+        [TestCase(new int[] { -68, 365, 14, -5, 8, 14 }, new int[] { 365, 14, 14, 8, -5, -68 })]
+        [TestCase(new int[] { 0, -8 }, new int[] { 0, -8 })]
+        [TestCase(new int[] { 2 }, new int[] { 2 })]
+        public void QuickSortDecreaseTest(int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual.QuickSortDecrease();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 2, 1, 3 }, 1, new int[] { 2, 3 })]
+        [TestCase(new int[] { 582, 1, 3, 1, 3, 5 }, 3, new int[] { 582, 1, 1, 3, 5 })]
+        [TestCase(new int[] { 0, -8 }, -8, new int[] { 0 })]
+        [TestCase(new int[] { 2 }, 2, new int[] { })]
+        public void DeleteFirstElementWithValueTest(int[] array, int value, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual.DeleteFirstElementWithValue(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 2, 1, 3 }, 1, new int[] { 2, 3 })]
+        [TestCase(new int[] { 582, 1, 3, 3, 1, 3, 5 }, 3, new int[] { 582, 1, 1, 5 })]
+        [TestCase(new int[] { 0, -8 }, -8, new int[] { 0 })]
+        [TestCase(new int[] { 2 }, 2, new int[] { })]
+        [TestCase(new int[] { 3, 2, 2, 2, 2 }, 2, new int[] { 3 })]
+        [TestCase(new int[] { 3, 2, 2, 2, 2, 3 }, 2, new int[] { 3, 3 })]
+        [TestCase(new int[] { 2, 2, 2, 2 }, 2, new int[] { })]
+        [TestCase(new int[] { 2, 1, 2, 1, 1 }, 2, new int[] { 1, 1, 1 })]
+        public void DeleteElementsWithValueTest(int[] array, int value, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual.DeleteElementsWithValue(value);
+            Assert.AreEqual(expected, actual);
+        }
 
         [TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
         [TestCase(new int[] { 18, 36 }, new int[] { -13, 6, 15, 66, -3589 }, new int[] { 18, 36, -13, 6, 15, 66, -3589 })]
@@ -359,14 +399,20 @@ namespace ArrayList.Tests
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 8)]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000)]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8)]
-        public void DeleteNElementsFromEndNegativTest(int[] array, int number)
+        public void DeleteNElementsFromBiginningNegativeTest(int[] array, int number)
         {
             LinkedList actual = new LinkedList(array);
             Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteNElementsFromBiginning(number));
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 3, new int[] { 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 5, new int[] { 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 6, new int[] { 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 6, new int[] { 1 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 3, new int[] { 1, 2, 3, 4 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 2, new int[] { 1, 2, 3, 4, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, 1, new int[] { 1, 2, 3, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 2, 3, new int[] { 1, 2, 6, 7 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 7, new int[] { })]

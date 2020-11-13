@@ -197,19 +197,21 @@ namespace DataStructure.LinkedLists
 
         public void ReversList()
         {
-
-            Node current = _root;
-            for(int i = 1; i <= Lenght/2; i++)
+            if (_root != null)
             {
+                Node head = _root;
+                Node curRoot = _root;
                 Node tmp = _root;
-                for (int j= 0; j<Lenght-i; j++)
+                Node fir = _root;
+                while (head.Next != null)
                 {
-                    tmp = tmp.Next;
+                    fir = curRoot;
+                    curRoot = head.Next;
+                    tmp = head.Next.Next;
+                    head.Next.Next = fir;
+                    head.Next = tmp;
                 }
-                int t = current.Value;
-                current.Value = tmp.Value;
-                tmp.Value = t;
-                current = current.Next;
+                _root = curRoot;
             }
         }
 
@@ -257,7 +259,19 @@ namespace DataStructure.LinkedLists
             {
                 throw new InvalidOperationException();
             }
-            return 1;
+            Node tmp = _root;
+            int max = tmp.Value;
+            int idx = 0;
+            for (int i = 1; i < Lenght; i++)
+            {
+                tmp = tmp.Next;
+                if (tmp.Value > max)
+                {
+                    max = tmp.Value;
+                    idx = i;
+                }
+            }
+            return idx;
         }
 
         public int GetIndexOfMinElement()
@@ -266,7 +280,19 @@ namespace DataStructure.LinkedLists
             {
                 throw new InvalidOperationException();
             }
-            return 1;
+            Node tmp = _root;
+            int min = tmp.Value;
+            int idx = 0;
+            for (int i = 1; i < Lenght; i++)
+            {
+                tmp = tmp.Next;
+                if (tmp.Value < min)
+                {
+                    min = tmp.Value;
+                    idx = i;
+                }
+            }
+            return idx;
         }
 
         public void QuickSort()
@@ -281,46 +307,199 @@ namespace DataStructure.LinkedLists
 
         public void DeleteFirstElementWithValue(int value)
         {
+            if (_root.Value == value)
+            {
+                _root = _root.Next;
+                Lenght--;
+            }
+            else
+            {
+                Node previous = _root;
+                Node current = _root.Next;
+
+                while (current != null)
+                {
+                    if (current.Value == value)
+                    {
+                        previous.Next = current.Next;
+                        Lenght--;
+                        return;
+                    }
+                    previous = current;
+                    current = current.Next;
+                }
+            }
 
         }
 
         public void DeleteElementsWithValue(int value)
         {
+            while (_root != null && _root.Value == value)
+            {
+                _root = _root.Next;
+                Lenght--;
+            }
+            if(_root != null)
+            {
+                Node previous = _root;
+                Node current = _root.Next;
+
+                while (current != null)
+                {
+                    if (current.Value == value)
+                    {
+                        previous.Next = current.Next;
+                        Lenght--;
+                        current = previous;
+                    }
+
+                    previous = current;
+                    current = current.Next;
+                }
+            }
 
         }
 
         public void AddArrayToEnd(int[] array)
         {
+            LinkedList added = new LinkedList(array);
+            Node first = added._root;
+            Node tmp = _root;
+            if (_root != null)
+            {
+                while (tmp.Next != null)
+                {
+                    tmp = tmp.Next;
+                }
+                tmp.Next = first;
+            }
+            else
+            {
+                _root = first;
+            }
+            Lenght += array.Length;
 
         }
 
-        //public void AddArrayToEnd(int[] array)
-        //{
-
-        //}
-
         public void AddArrayToBiginning(int[] array)
         {
+            LinkedList added = new LinkedList(array);
+            if(added._root != null)
+            {
+                Node first = added._root;
+                Node tmp = _root;
+                if (_root != null)
+                {
+                    _root = added._root;
+                    while (first.Next != null)
+                    {
+                        first = first.Next;
+                    }
+                    first.Next = tmp;
+                }
+                else
+                {
+                    _root = first;
+                }
+                Lenght += array.Length;
+            }
 
         }
 
         public void AddArrayTo(int idx, int[] array)
         {
+            if (idx != 0 && idx >= Lenght || idx < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            LinkedList added = new LinkedList(array);
+            Node first = added._root;
+            Node tmp = _root;
+            if (_root != null)
+            {
+                for(int i = 1; i < idx; i++)
+                {
+                    tmp = tmp.Next;
+                }
+                Node sup = tmp.Next;
+                tmp.Next = first;
+                while(tmp.Next != null)
+                {
+                    tmp = tmp.Next;
+                }
+                tmp.Next = sup;
+            }
+            else
+            {
+                _root = first;
+            }
+            Lenght += array.Length;
 
         }
 
         public void DeleteNElementsFromEnd(int number)
         {
-
+            if (number > Lenght || number < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            Node tmp = _root;
+            for (int i = 1; i < Lenght - number; i++)
+            {
+                tmp = tmp.Next;
+            }
+            tmp.Next = null;
+            Lenght -= number;
         }
 
         public void DeleteNElementsFromBiginning(int number)
         {
-
+            if (number > Lenght || number < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            Node tmp = _root;
+            if (number != 0) {
+                for (int i = 1; i < number; i++)
+                {
+                    tmp = tmp.Next;
+                }
+                _root = tmp.Next;
+                Lenght -= number;
+            }
+            
         }
 
         public void DeleteNElementsFrom(int idx, int number)
         {
+            if (idx > Lenght || idx < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (number + idx > Lenght || number < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            Node first = _root;
+            Node second = _root;
+            if (number != 0)
+            {
+                for (int i = 0; i < idx + number - 1; i++)
+                {
+                    second = second.Next;
+
+                }
+                for (int i = 0; i < idx - 1; i++)
+                {
+                    first = first.Next;
+                }
+                if (idx == 0)
+                {
+                    _root = second.Next;
+                }
+                first.Next = second.Next;
+            }
+            Lenght -= number;
 
         }
 
@@ -365,6 +544,20 @@ namespace DataStructure.LinkedLists
                 s += tmp.Value + ";";
             }
             return s;
+        }
+
+        private Node GetNodeByIndex(int idx)
+        {
+            if (idx >= Lenght || idx < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            Node tmp = _root;
+            for (int i = 1; i <= idx; i++)
+            {
+                tmp = tmp.Next;
+            }
+            return tmp;
         }
 
     }
