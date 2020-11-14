@@ -76,14 +76,23 @@ namespace DataStructure.LinkedLists
 
         public void AddToEnd(int value)
         {
-            Node current = _root;
-            for (int i = 1; i < Lenght; i++)
+            if (Lenght == 0)
             {
-                current = current.Next;
+                Node t = _root;
+                _root = new Node(value);
+                _root.Next = t;
             }
-            Node tmp = current.Next;
-            current.Next = new Node(value);
-            current.Next.Next = tmp;
+            else
+            {
+                Node current = _root;
+                for (int i = 1; i < Lenght; i++)
+                {
+                    current = current.Next;
+                }
+                Node tmp = current.Next;
+                current.Next = new Node(value);
+                current.Next.Next = tmp;
+            }
             Lenght++;
         }
 
@@ -295,10 +304,28 @@ namespace DataStructure.LinkedLists
             return idx;
         }
 
-        public void QuickSort()
-        {
 
+
+        public void MergeSort()
+        {
+            LinkedList list = new LinkedList();
+            list._root = _root;
+            list.Lenght = Lenght;
+            list = MergeSort(list);
+            _root = list._root;
         }
+
+        public void MergeDecreaseSort()
+        {
+            LinkedList list = new LinkedList();
+            list._root = _root;
+            list.Lenght = Lenght;
+            list = MergeSort(list);
+            _root = list._root;
+            ReversList();
+        }
+
+
 
         public void QuickSortDecrease()
         {
@@ -558,6 +585,76 @@ namespace DataStructure.LinkedLists
                 tmp = tmp.Next;
             }
             return tmp;
+        }
+
+        static private LinkedList MergeSort(LinkedList list)
+        {
+            LinkedList finishList = new LinkedList();
+            LinkedList supList = new LinkedList();
+            Node current = list._root;
+            Node tmp = list._root;
+            int curLength = list.Lenght;
+            if (curLength < 2)
+            {
+                return list;
+            }
+            int tL = curLength / 2;
+            for (int i = 1; i < tL; i++)
+            {
+                current = current.Next;
+            }
+            tmp = current.Next;
+            current.Next = null;
+            supList._root = tmp;
+            if (curLength % 2 == 0)
+            {
+                list.Lenght /= 2;
+                supList.Lenght = tL;
+            }
+            else
+            {
+                list.Lenght /= 2;
+                supList.Lenght = tL + 1;
+            }
+
+
+            list = MergeSort(list);
+            supList = MergeSort(supList);
+            finishList.Merge(list, supList, finishList);
+            return finishList;
+        }
+
+        private void Merge(LinkedList list, LinkedList supList, LinkedList finishList)
+        {
+            while (list._root != null && supList._root != null)
+            {
+                if (list._root.Value <= supList._root.Value)
+                {
+                    finishList.AddToEnd(list._root.Value);
+                    list._root = list._root.Next;
+                }
+                else
+                {
+                    finishList.AddToEnd(supList._root.Value);
+                    supList._root = supList._root.Next;
+                }
+            }
+            if (list._root == null)
+            {
+                while (supList._root != null)
+                {
+                    finishList.AddToEnd(supList._root.Value);
+                    supList._root = supList._root.Next;
+                }
+            }
+            else
+            {
+                while (list._root != null)
+                {
+                    finishList.AddToEnd(list._root.Value);
+                    list._root = list._root.Next;
+                }
+            }
         }
 
     }

@@ -17,6 +17,8 @@ namespace ArrayList.Tests
         }
 
         [TestCase(new int[] { 1, 2, 3 }, 4, new int[] { 1, 2, 3, 4 })]
+        [TestCase(new int[] { }, 4, new int[] { 4 })]
+        [TestCase(new int[] { 1 }, 4, new int[] { 1, 4 })]
         [TestCase(new int[] { 1, 2, 3 }, 0, new int[] { 1, 2, 3, 0 })]
         [TestCase(new int[] { 1, 2, 3 }, -65, new int[] { 1, 2, 3, -65 })]
         [TestCase(new int[] { 1, 2, 3 }, 47887, new int[] { 1, 2, 3, 47887 })]
@@ -250,15 +252,26 @@ namespace ArrayList.Tests
 
         [TestCase(new int[] { 2, 1, 3 }, new int[] { 1, 2, 3 })]
         [TestCase(new int[] { 582, 1, 3, 4, 5 }, new int[] { 1, 3, 4, 5, 582 })]
-        [TestCase(new int[] { -68, 365, 14, -5, 8, 14 }, new int[] { -68, -5, 8, 14, 14, 365 })]
+        [TestCase(new int[] { 582, 1, 1, 4, 5 }, new int[] { 1, 1, 4, 5, 582 })]
+        [TestCase(new int[] { 582, 1, 3, 1, 5 }, new int[] { 1, 1, 3, 5, 582 })]
+        [TestCase(new int[] { 582, 1, 1, 1, 5 }, new int[] { 1, 1, 1, 5, 582 })]
+        [TestCase(new int[] { 1, 1, 1, 1, 1 }, new int[] { 1, 1, 1, 1, 1 })]
+        [TestCase(new int[] { 1, 1, 2, 1, 1 }, new int[] { 1, 1, 1, 1, 2 })]
+        [TestCase(new int[] { 2, 1, 1, 1, 1 }, new int[] { 1, 1, 1, 1, 2 })]
+        [TestCase(new int[] { 1, 1, 2, 1, 2 }, new int[] { 1, 1, 1, 2, 2 })]
+        [TestCase(new int[] { -68, 365, 14, -5, 8, 14 }, new int[] { -68, -5, 8, 14, 14, 365 })]//
+        [TestCase(new int[] { -68, 365, 8, -5, 14, 14 }, new int[] { -68, -5, 8, 14, 14, 365 })]//
+        [TestCase(new int[] { -68, 14, 365, -5, 8, 14 }, new int[] { -68, -5, 8, 14, 14, 365 })]
+        [TestCase(new int[] { -68, 14, 365, 19, 8, 14 }, new int[] { -68, 8, 14, 14, 19, 365 })]
+        [TestCase(new int[] { -70, 365, 14, -5, 8, 14, 1, 88 }, new int[] { -70, -5, 1, 8, 14, 14, 88, 365 })]
         [TestCase(new int[] { 0, -8 }, new int[] { -8, 0 })]
         [TestCase(new int[] { 2 }, new int[] { 2 })]
-        public void QuickSortTest(int[] array, int[] expectedArray)
+        public void MergeSortTest(int[] array, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(array);
             LinkedList expected = new LinkedList(expectedArray);
 
-            actual.QuickSort();
+            actual.MergeSort();
             Assert.AreEqual(expected, actual);
 
         }
@@ -268,11 +281,11 @@ namespace ArrayList.Tests
         [TestCase(new int[] { -68, 365, 14, -5, 8, 14 }, new int[] { 365, 14, 14, 8, -5, -68 })]
         [TestCase(new int[] { 0, -8 }, new int[] { 0, -8 })]
         [TestCase(new int[] { 2 }, new int[] { 2 })]
-        public void QuickSortDecreaseTest(int[] array, int[] expectedArray)
+        public void MergeDecreaseSortTest(int[] array, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(array);
             LinkedList expected = new LinkedList(expectedArray);
-            actual.QuickSortDecrease();
+            actual.MergeDecreaseSort();
             Assert.AreEqual(expected, actual);
         }
 
