@@ -304,9 +304,7 @@ namespace DataStructure.LinkedLists
             return idx;
         }
 
-
-
-        public void MergeSort()
+        public void Sort()
         {
             LinkedList list = new LinkedList();
             list._root = _root;
@@ -315,7 +313,7 @@ namespace DataStructure.LinkedLists
             _root = list._root;
         }
 
-        public void MergeDecreaseSort()
+        public void DecreaseSort()
         {
             LinkedList list = new LinkedList();
             list._root = _root;
@@ -324,8 +322,6 @@ namespace DataStructure.LinkedLists
             _root = list._root;
             ReversList();
         }
-
-
 
         public void QuickSortDecrease()
         {
@@ -387,7 +383,7 @@ namespace DataStructure.LinkedLists
 
         }
 
-        public void AddArrayToEnd(int[] array)
+        public void AddToEnd(int[] array)
         {
             LinkedList added = new LinkedList(array);
             Node first = added._root;
@@ -408,7 +404,7 @@ namespace DataStructure.LinkedLists
 
         }
 
-        public void AddArrayToBiginning(int[] array)
+        public void AddToBiginning(int[] array)
         {
             LinkedList added = new LinkedList(array);
             if(added._root != null)
@@ -433,7 +429,7 @@ namespace DataStructure.LinkedLists
 
         }
 
-        public void AddArrayTo(int idx, int[] array)
+        public void AddTo(int idx, int[] array)
         {
             if (idx != 0 && idx >= Lenght || idx < 0)
             {
@@ -464,7 +460,7 @@ namespace DataStructure.LinkedLists
 
         }
 
-        public void DeleteNElementsFromEnd(int number)
+        public void DeleteFromEnd(int number)
         {
             if (number > Lenght || number < 0)
             {
@@ -479,7 +475,7 @@ namespace DataStructure.LinkedLists
             Lenght -= number;
         }
 
-        public void DeleteNElementsFromBiginning(int number)
+        public void DeleteFromBiginning(int number)
         {
             if (number > Lenght || number < 0)
             {
@@ -497,7 +493,7 @@ namespace DataStructure.LinkedLists
             
         }
 
-        public void DeleteNElementsFrom(int idx, int number)
+        public void DeleteFrom(int idx, int number)
         {
             if (idx > Lenght || idx < 0)
             {
