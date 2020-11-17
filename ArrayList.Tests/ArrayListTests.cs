@@ -269,7 +269,7 @@ namespace ArrayList.Tests
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
-            actual.QuickSort();
+            actual.Sort();
             Assert.AreEqual(expected, actual);
             
         }
@@ -283,7 +283,7 @@ namespace ArrayList.Tests
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
-            actual.QuickSortDecrease();
+            actual.SortDecrease();
             Assert.AreEqual(expected, actual);
         }
 
@@ -321,7 +321,7 @@ namespace ArrayList.Tests
         public void AddArrayToEndTest(int[] array ,int[] addedArray, int[] expectedArray)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
-            actual.AddArrayToEnd(addedArray);
+            actual.AddToEnd(addedArray);
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
 
             Assert.AreEqual(expected, actual);
@@ -336,7 +336,7 @@ namespace ArrayList.Tests
         public void AddArrayToBiginningTest(int[] array, int[] addedArray, int[] expectedArray)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
-            actual.AddArrayToBiginning(addedArray);
+            actual.AddToBiginning(addedArray);
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
 
             Assert.AreEqual(expected, actual);
@@ -351,7 +351,7 @@ namespace ArrayList.Tests
         public void AddArrayToTest(int[] array, int idx, int[] addedArray, int[] expectedArray)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
-            actual.AddArrayTo(idx, addedArray);
+            actual.AddTo(idx, addedArray);
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
 
             Assert.AreEqual(expected, actual);
@@ -364,7 +364,7 @@ namespace ArrayList.Tests
         public void AddArrayToNegativTest(int[] array, int idx, int[] addedArray)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
-            Assert.Throws<IndexOutOfRangeException>(() => actual.AddArrayTo(idx, addedArray));
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddTo(idx, addedArray));
         }
 
 
@@ -376,7 +376,7 @@ namespace ArrayList.Tests
         public void DeleteNElementsFromEndTest(int[] array, int number, int[] expectedArray)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
-            actual.DeleteNElementsFromEnd(number);
+            actual.DeleteFromEnd(number);
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
 
             Assert.AreEqual(expected, actual);
@@ -389,7 +389,7 @@ namespace ArrayList.Tests
         public void DeleteNElementsFromEndNegativeTest(int[] array, int number)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
-            Assert.Throws<ArgumentOutOfRangeException> (() => actual.DeleteNElementsFromEnd(number));
+            Assert.Throws<ArgumentOutOfRangeException> (() => actual.DeleteFromEnd(number));
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 4, 5, 6, 7 })]
@@ -400,7 +400,7 @@ namespace ArrayList.Tests
         public void DeleteNElementsFromBiginning(int[] array, int number, int[] expectedArray)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
-            actual.DeleteNElementsFromBiginning(number);
+            actual.DeleteFromBiginning(number);
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
             Assert.AreEqual(expected, actual);
         }
@@ -411,7 +411,7 @@ namespace ArrayList.Tests
         public void DeleteNElementsFromEndNegativTest(int[] array, int number)
         {
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
-            Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteNElementsFromBiginning(number));
+            Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFromBiginning(number));
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 3, new int[] { 4, 5, 6, 7 })]
@@ -425,7 +425,7 @@ namespace ArrayList.Tests
             DataStructure.ArrayList actual = new DataStructure.ArrayList(array);
             DataStructure.ArrayList expected = new DataStructure.ArrayList(expectedArray);
 
-            actual.DeleteNElementsFrom(idx, number);
+            actual.DeleteFrom(idx, number);
             Assert.AreEqual(expected, actual);
         }
 
@@ -442,10 +442,10 @@ namespace ArrayList.Tests
             switch (excepyion)
             {
                 case "Index":
-                    Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteNElementsFrom(idx, number));
+                    Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteFrom(idx, number));
                     break;
                 case "Argument":
-                    Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteNElementsFrom(idx, number));
+                    Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFrom(idx, number));
                     break;
             }
         }

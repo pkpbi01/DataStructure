@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DataStructure
 {
-    public class ArrayList
+    public class ArrayList:IList
     {
         public int Lenght { get; private set; }
 
@@ -197,8 +197,6 @@ namespace DataStructure
             return newList;
         }
 
-
-
         public int GetMaxElement()
         {
             if (Lenght == 0)
@@ -215,7 +213,7 @@ namespace DataStructure
                 }
             }
             return max;
-        }//---
+        }
 
         public int GetMinElement()
         {
@@ -232,7 +230,7 @@ namespace DataStructure
                 }
             }
             return min;
-        }//---
+        }
 
         public int GetIndexOfMaxElement()
         {
@@ -251,7 +249,7 @@ namespace DataStructure
                 }
             }
             return idx;
-        }//---
+        }
 
         public int GetIndexOfMinElement()
         {
@@ -270,16 +268,16 @@ namespace DataStructure
                 }
             }
             return idx;
-        }//---
+        }
 
-        public void QuickSort()
+        public void Sort()
         {
             ArrayList newList = CopyList();
             newList = QuickSort(newList, 0, newList.Lenght - 1);
             _array = newList._array;
         }
 
-        public void QuickSortDecrease()
+        public void SortDecrease()
         {
             ArrayList newList = CopyList();
             newList = QuickSort(newList, 0, newList.Lenght - 1);
@@ -340,7 +338,7 @@ namespace DataStructure
             }
         }
 
-        public void AddArrayToEnd(int[] array)
+        public void AddToEnd(int[] array)
         {
             if (_TrueLenght <= Lenght + array.Length)
             {
@@ -352,7 +350,7 @@ namespace DataStructure
             }
         }
 
-        public void AddArrayToBiginning(int[] array)
+        public void AddToBiginning(int[] array)
         {
             if (_TrueLenght <= Lenght + array.Length)
             {
@@ -369,7 +367,7 @@ namespace DataStructure
             Lenght += array.Length;
         }
 
-        public void AddArrayTo(int idx, int[] array)
+        public void AddTo(int idx, int[] array)
         {
             if (_TrueLenght <= Lenght + array.Length)
             {
@@ -390,7 +388,7 @@ namespace DataStructure
             Lenght += array.Length;
         }
 
-        public void DeleteNElementsFromEnd(int number)
+        public void DeleteFromEnd(int number)
         {
             if (number > Lenght || number < 0)
             {
@@ -403,7 +401,7 @@ namespace DataStructure
             }
         }
 
-        public void DeleteNElementsFromBiginning(int number)
+        public void DeleteFromBiginning(int number)
         {
             if (number > Lenght || number < 0)
             {
@@ -420,8 +418,7 @@ namespace DataStructure
             }
         }
 
-
-        public void DeleteNElementsFrom(int idx, int number)
+        public void DeleteFrom(int idx, int number)
         {
             if (idx > Lenght || idx < 0)
             {
@@ -443,17 +440,6 @@ namespace DataStructure
                 DicreaseLenght();
             }
         }
-
-        public void PrintList()
-        {
-            for(int i = 0; i < Lenght; i++)
-            {
-                Console.Write($"{_array[i]} ");
-            }
-        }
-
-
-
        
 
         private void IncreaseLenght(int number = 1)
