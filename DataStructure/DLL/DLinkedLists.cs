@@ -75,7 +75,7 @@ namespace DataStructure.DLinkedList
         public DLinkedList(int value)
         {
             _head = new DNode(value);
-            _tail = new DNode(value);
+            _tail = _head;
             Lenght = 1;
         }
 
@@ -84,7 +84,7 @@ namespace DataStructure.DLinkedList
             if (array.Length != 0)
             {
                 _head = new DNode(array[0]);
-                _tail = new DNode(array[0]);
+                _tail = _head;
                 DNode tmp = _head;
 
                 for (int i = 1; i < array.Length; i++)
@@ -110,7 +110,7 @@ namespace DataStructure.DLinkedList
             if (Lenght == 0)
             {
                 _head = new DNode(value);
-                _tail = new DNode(value);
+                _tail = _head;
             }
             else
             {
@@ -130,12 +130,64 @@ namespace DataStructure.DLinkedList
 
         public void AddToBiginning(int value)
         {
-
+            if (Lenght == 0)
+            {
+                _head = new DNode(value);
+                _tail = _head;
+            }
+            else
+            {
+                DNode tmp = _head;
+                _head.Previous = new DNode(value);
+                _head.Previous.Previous = null;
+                _head.Previous.Next = tmp;
+                _head = tmp.Previous;
+            }
+            Lenght++;
         }
 
         public void AddTo(int idx, int value)
-        {
+        {            
+            if (Lenght == 0)
+            {
+                _head = new DNode(value);
+                _tail = new DNode(value);
+            }
+            else
+            {                
+                DNode current = _head;
+                if (idx <= Lenght / 2)
+                {
+                    for (int i = 1; i <= idx; i++)
+                    {
+                        current = current.Next; 
+                    }
+                    DNode tmp = current.Next;
+                    current.Next = new DNode(value);
+                    current.Next.Next = tmp;
+                    DNode tmp2 = current.Previous;
+                    current.Previous = new DNode(value);
+                    current.Previous.Previous = tmp2;                    
+                }
+                else
+                {
+                    current = _tail;
+                    for (int i = Lenght - 1; i > idx; i--)
+                    {
+                        current = current.Previous;
+                    }
+                    DNode tmp = current.Previous;
+                    DNode tmp2 = current.Previous.Next;
+                    current.Previous = new DNode(value);
+                    current.Previous.Previous = tmp;
+                    tmp.Next = current.Previous;
+                    current.Previous.Next = tmp2;
+                                       
+                    
+                }
 
+            }
+            Lenght++;
         }
 
         public void DeleteFromEnd()

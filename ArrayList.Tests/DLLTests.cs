@@ -58,8 +58,12 @@ namespace ArrayList.Tests
 
         [TestCase(new int[] { 1 }, 0, 45, new int[] { 45, 1 })]
         [TestCase(new int[] { 1, 2, 3 }, 2, 2, new int[] { 1, 2, 2, 3 })]
+        [TestCase(new int[] { 1, 2, 3, 4 }, 2, 5, new int[] { 1, 2, 5, 3, 4 })]
         [TestCase(new int[] { 1, 2, 3, 4 }, 0, 11, new int[] { 11, 1, 2, 3, 4 })]
-        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 4, 0, new int[] { 1, 2, 3, 4, 0, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 0, new int[] { 1, 2, 3, 4, 0, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 6, 0, new int[] { 1, 2, 3, 4, 5, 6, 0, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 2, 0, new int[] { 1, 2, 0, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, 0, new int[] { 1, 2, 3, 0, 4, 5, 6, 7 })]
         [TestCase(new int[] { }, 0, 45, new int[] { 45 })]
         public void AddToTest(int[] array, int idx, int value, int[] expectedArray)
         {
