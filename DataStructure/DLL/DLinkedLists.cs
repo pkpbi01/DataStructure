@@ -16,53 +16,13 @@ namespace DataStructure.DLinkedList
         {
             get
             {
-                if (idx >= Lenght || idx < 0)
-                {
-                    throw new IndexOutOfRangeException();
-                }
-                DNode tmp;
-                if (idx < Lenght / 2)
-                {
-                    tmp = _head;
-                    for (int i = 1; i <= idx; i++)
-                    {
-                        tmp = tmp.Next;
-                    }
-                }
-                else
-                {
-                    tmp = _tail;
-                    for (int i = Lenght-1; i > idx; i--)
-                    {
-                        tmp = tmp.Previous;
-                    }
-                }
+                DNode tmp = GetDNodeByIndex(idx);
 
                 return tmp.Value;
             }
             set
             {
-                if (idx >= Lenght || idx < 0)
-                {
-                    throw new IndexOutOfRangeException();
-                }
-                DNode tmp;
-                if (idx < Lenght / 2)
-                {
-                    tmp = _head;
-                    for (int i = 1; i <= idx; i++)
-                    {
-                        tmp = tmp.Next;
-                    }
-                }
-                else
-                {
-                    tmp = _tail;
-                    for (int i = Lenght; i > idx; i--)
-                    {
-                        tmp = tmp.Previous;
-                    }
-                }
+                DNode tmp = GetDNodeByIndex(idx);
                 tmp.Value = value;
             }
         }
@@ -147,122 +107,319 @@ namespace DataStructure.DLinkedList
         }
 
         public void AddTo(int idx, int value)
-        {            
+        {
             if (Lenght == 0)
             {
                 _head = new DNode(value);
                 _tail = new DNode(value);
+                Lenght++;
             }
             else
-            {                
-                DNode current = _head;
-                if (idx <= Lenght / 2)
+            {
+                if (idx == 0)
                 {
-                    for (int i = 1; i <= idx; i++)
-                    {
-                        current = current.Next; 
-                    }
-                    DNode tmp = current.Next;
-                    current.Next = new DNode(value);
-                    current.Next.Next = tmp;
-                    DNode tmp2 = current.Previous;
-                    current.Previous = new DNode(value);
-                    current.Previous.Previous = tmp2;                    
+                    AddToBiginning(value);
                 }
                 else
                 {
-                    current = _tail;
-                    for (int i = Lenght - 1; i > idx; i--)
-                    {
-                        current = current.Previous;
-                    }
-                    DNode tmp = current.Previous;
-                    DNode tmp2 = current.Previous.Next;
-                    current.Previous = new DNode(value);
-                    current.Previous.Previous = tmp;
-                    tmp.Next = current.Previous;
-                    current.Previous.Next = tmp2;
-                                       
-                    
-                }
+                    DNode current = GetDNodeByIndex(idx - 1);
+                    DNode tmp = current.Next;
+                    current.Next = new DNode(value);
+                    current.Next.Next = tmp;
+                    current.Next.Previous = tmp.Previous;
+                    tmp.Previous = current.Next;
+                    Lenght++;
 
+                }
             }
-            Lenght++;
         }
 
         public void DeleteFromEnd()
         {
-
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            if (Lenght > 1)
+            {
+                DNode tmp = GetDNodeByIndex(Lenght - 2);
+                _tail = tmp;
+                tmp.Next = null;
+                Lenght--;
+            }
+            else
+            {
+                _head = null;
+                _tail = null;
+                Lenght = 0;
+            }
         }
 
         public void DeleteFromBiginning()
         {
-
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            if (Lenght > 1)
+            {
+                DNode tmp = GetDNodeByIndex(1);
+                _head = tmp;
+                tmp.Previous = null;
+                Lenght--;
+            }
+            else
+            {
+                _head = null;
+                _tail = null;
+                Lenght = 0;
+            }
         }
 
         public void DeleteFrom(int idx)
         {
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
+            if (idx == 0 && Lenght > 1)
+            {
+                DeleteFromBiginning();
+            }
+
+            else if (idx == Lenght - 1 && Lenght > 1)
+            {
+                DeleteFromEnd();
+            }
+
+            else if (Lenght > 1 && idx != 0 && idx != Lenght)
+            {
+                DNode tmp = GetDNodeByIndex(idx);
+                tmp.Next.Previous = tmp.Previous;
+                tmp.Previous.Next = tmp.Next;
+                Lenght--;
+            }
+            else
+            {
+                _head = null;
+                _tail = null;
+                Lenght = 0;
+            }
+
+
+
 
         }
 
         public int GetLenght()
         {
-            return 1;
+            return Lenght;
         }
 
         public int GetByIndex(int idx)
         {
-            return 1;
+            if (idx >= Lenght || idx < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            DNode tmp = GetDNodeByIndex(idx);
+            return tmp.Value;
         }
 
         public int GetIndexByValue(int value)
         {
-            return 1;
+            if (_head.Value == value)
+            {
+                return 0;
+            }
+            DNode tmp = _head;
+            for (int i = 1; i < Lenght; i++)
+            {
+                tmp = tmp.Next;
+                if (tmp.Value == value)
+                {
+                    return i;
+                }
+
+            }
+            throw new ArgumentException();
         }
 
         public void ReversList()
         {
+            if (Lenght == 0)
+            {
+                return;
+            }
+            DNode current = _head;
+            _tail = _head;
+            DNode tmp;
+            while (current.Next != null)
+            {
+                tmp = current.Next;
+                current.Next = current.Previous;
+                current.Previous = tmp;
+                current = current.Previous;
+            }
+            current.Next = current.Previous;
+            current.Previous = null;
+            _head = current;
 
         }
 
         public int GetMaxElement()
         {
-            return 1;
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            DNode tmp = _head;
+            int max = tmp.Value;
+            for (int i = 1; i < Lenght; i++)
+            {
+                tmp = tmp.Next;
+                if (tmp.Value > max)
+                {
+                    max = tmp.Value;
+                }
+            }
+            return max;
         }
 
         public int GetMinElement()
         {
-            return 1;
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            DNode tmp = _head;
+            int min = tmp.Value;
+            for (int i = 1; i < Lenght; i++)
+            {
+                tmp = tmp.Next;
+                if (tmp.Value < min)
+                {
+                    min = tmp.Value;
+                }
+            }
+            return min;
         }
 
         public int GetIndexOfMaxElement()
         {
-            return 1;
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            DNode tmp = _head;
+            int max = tmp.Value;
+            int idx = 0;
+            for (int i = 1; i < Lenght; i++)
+            {
+                tmp = tmp.Next;
+                if (tmp.Value > max)
+                {
+                    max = tmp.Value;
+                    idx = i;
+                }
+            }
+            return idx;
         }
 
         public int GetIndexOfMinElement()
         {
-            return 1;
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
+            DNode tmp = _head;
+            int min = tmp.Value;
+            int idx = 0;
+            for (int i = 1; i < Lenght; i++)
+            {
+                tmp = tmp.Next;
+                if (tmp.Value < min)
+                {
+                    min = tmp.Value;
+                    idx = i;
+                }
+            }
+            return idx;
         }
 
         public void Sort()
         {
-
+            DLinkedList list = new DLinkedList();
+            list._head = _head;
+            list._tail = _tail;
+            list.Lenght = Lenght;
+            list = MergeSort(list);
+            _head = list._head;
+            _tail = list._tail;
         }
 
         public void SortDecrease()
         {
-
+            DLinkedList list = new DLinkedList();
+            list._head = _head;
+            list._tail = _tail;
+            list.Lenght = Lenght;
+            list = MergeSort(list);
+            _head = list._head;
+            _tail = list._tail;
+            ReversList();
         }
 
         public void DeleteFirstElementWithValue(int value)
         {
-
+            if(Lenght == 1 && _head.Value == value)
+            {
+                _head = null;
+                _tail = null;
+                Lenght = 0;
+                return;
+            }
+            if (_head.Value == value)
+            {
+                _head = _head.Next;
+                _head.Previous = null;
+                Lenght--;
+                return;
+            }
+            else
+            {
+                DNode current = _head;
+                while (current.Next != null)
+                {
+                    if (current.Value == value)
+                    {
+                        DNode tmp = current.Next;
+                        DNode tmp2 = current.Previous;
+                        current.Next.Previous = tmp2;
+                        current.Previous.Next = tmp;
+                        Lenght--;
+                        return;
+                    }
+                    
+                    current = current.Next;
+                }
+            }
+            if(_tail.Value == value)
+            {
+                _tail = _tail.Previous;
+                Lenght--;
+                
+            }
         }
 
         public void DeleteElementsWithValue(int value)
-        {
-
+        {            
+            while (_head.Value != value)
+            {
+                _head = _head.Next;
+            }
+             
         }
 
         //public void AddToEnd(int[] array)
@@ -310,7 +467,7 @@ namespace DataStructure.DLinkedList
             DNode tmpTail2 = dlinkedList._tail;
             for (int i = 0; i < Lenght; i++)
             {
-                if (tmpHead1.Value != tmpHead2.Value && tmpTail1.Value != tmpTail2.Value)
+                if (tmpHead1.Value != tmpHead2.Value || tmpTail1.Value != tmpTail2.Value)
                 {
                     return false;
                 }
@@ -320,6 +477,124 @@ namespace DataStructure.DLinkedList
                 tmpTail2 = tmpTail2.Previous;
             }
             return true;
+        }
+
+
+        public override string ToString()
+        {
+            string s = "";
+            if (_head != null)
+            {
+                DNode tmp = _head;
+                while (tmp.Next != null)
+                {
+                    s += tmp.Value + ";";
+                    tmp = tmp.Next;
+                }
+                s += tmp.Value + ";";
+            }
+            return s;
+        }
+
+        private DNode GetDNodeByIndex(int idx)
+        {
+            if (idx >= Lenght || idx < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            DNode tmp;
+            if (idx <= Lenght / 2)
+            {
+                tmp = _head;
+                for (int i = 1; i <= idx; i++)
+                {
+                    tmp = tmp.Next;
+                }
+            }
+            else
+            {
+                tmp = _tail;
+                for (int i = Lenght - 1; i > idx; i--)
+                {
+                    tmp = tmp.Previous;
+                }
+            }
+            return tmp;
+        }
+
+        static private DLinkedList MergeSort(DLinkedList list)
+        {
+            DLinkedList finishList = new DLinkedList();
+            DLinkedList supList = new DLinkedList();
+            DNode current = list._head;
+            DNode tmp = list._head;
+            int curLength = list.Lenght;
+            if (curLength < 2)
+            {
+                return list;
+            }
+            int tL = curLength / 2;
+            for (int i = 1; i < tL; i++)
+            {
+                current = current.Next;
+            }
+            tmp = current.Next;
+            DNode tmp2 = current.Next.Previous;
+            supList._tail = list._tail;
+            current.Next.Previous = null;
+            current.Next = null;
+            list._tail = current;
+            supList._head = tmp;
+            if (curLength % 2 == 0)
+            {
+                list.Lenght /= 2;
+                supList.Lenght = tL;
+            }
+            else
+            {
+                list.Lenght /= 2;
+                supList.Lenght = tL + 1;
+            }
+
+
+            list = MergeSort(list);
+            supList = MergeSort(supList);
+            finishList.Merge(list, supList, finishList);
+            return finishList;
+        }
+
+        private void Merge(DLinkedList list, DLinkedList supList, DLinkedList finishList)
+        {
+            while (list._head != null && supList._head != null)
+            {
+                if (list._head.Value <= supList._head.Value)
+                {
+                    finishList.AddToEnd(list._head.Value);
+
+                    list._head = list._head.Next;
+                }
+                else
+                {
+                    finishList.AddToEnd(supList._head.Value);
+                    supList._head = supList._head.Next;
+                }
+            }
+            if (list._head == null)
+            {
+                while (supList._head != null)
+                {
+                    finishList.AddToEnd(supList._head.Value);
+                    supList._head = supList._head.Next;
+                }
+            }
+            else
+            {
+                while (list._head != null)
+                {
+                    finishList.AddToEnd(list._head.Value);
+                    list._head = list._head.Next;
+                }
+            }
         }
     }
 }

@@ -16,6 +16,9 @@ namespace ArrayList.Tests
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, 1, 2)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, 2, 3)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, 3, 4)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6 }, 4, 5)]
         [TestCase(new int[] { 1, 2, 12, 4, 5, 6 }, 2, 12)]
         [TestCase(new int[] { 999, 2, 3, 4, 5, 6 }, 0, 999)]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 666 }, 5, 666)]
@@ -84,6 +87,7 @@ namespace ArrayList.Tests
         }
 
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 1, 2 })]
+        [TestCase(new int[] { 1 }, new int[] { })]
         [TestCase(new int[] { 4, 12, 6 }, new int[] { 4, 12 })]
         [TestCase(new int[] { 545, 23, 6 }, new int[] { 545, 23 })]
         public void DeleteFromEndTest(int[] array, int[] expectedArray)
@@ -108,6 +112,7 @@ namespace ArrayList.Tests
         }
 
         [TestCase(new int[] { 1, 2, 3 }, 0, new int[] { 2, 3 })]
+        [TestCase(new int[] { 1 }, 0, new int[] {  })]
         [TestCase(new int[] { 1, 2, 3 }, 1, new int[] { 1, 3 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 45, -15 }, 4, new int[] { 1, 2, 3, 4, 6, 7, 45, -15 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 4, new int[] { 1, 2, 3, 4 })]
@@ -309,6 +314,7 @@ namespace ArrayList.Tests
         [TestCase(new int[] { 582, 1, 3, 1, 3, 5 }, 3, new int[] { 582, 1, 1, 3, 5 })]
         [TestCase(new int[] { 0, -8 }, -8, new int[] { 0 })]
         [TestCase(new int[] { 2 }, 2, new int[] { })]
+        [TestCase(new int[] { 2, 3, 4 }, 2, new int[] { 3, 4 })]
         public void DeleteFirstElementWithValueTest(int[] array, int value, int[] expectedArray)
         {
             DLinkedList actual = new DLinkedList(array);

@@ -132,6 +132,10 @@ namespace DataStructure.LinkedLists
 
         public void DeleteFromEnd()
         {
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
             Node current = _root;
             for (int i = 1; i < Lenght-1; i++)
             {
@@ -144,6 +148,10 @@ namespace DataStructure.LinkedLists
 
         public void DeleteFromBiginning()
         {
+            if (Lenght == 0)
+            {
+                throw new InvalidOperationException();
+            }
             _root = _root.Next;
             Lenght--;
         }
