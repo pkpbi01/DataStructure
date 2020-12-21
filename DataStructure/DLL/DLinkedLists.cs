@@ -29,6 +29,8 @@ namespace DataStructure.DLinkedList
 
         public DLinkedList()
         {
+            _head = null;
+            _tail = null;
             Lenght = 0;
         }
 
@@ -414,43 +416,178 @@ namespace DataStructure.DLinkedList
         }
 
         public void DeleteElementsWithValue(int value)
-        {            
-            while (_head.Value != value)
+        {
+            while (_head != null && _head.Value == value)
             {
                 _head = _head.Next;
+                if(_head != null)
+                {
+                    _head.Previous = null;
+                }
+                Lenght--;
             }
-             
+            if (_head != null)
+            {
+                DNode cur = _head; 
+                while(cur != null)
+                {
+                    if (cur.Value == value)
+                    {
+                        DNode tmp = cur.Next;
+                        cur.Previous.Next = tmp;
+                        if (tmp != null)
+                        {
+                            tmp.Previous = cur.Previous;
+                        }
+                        else
+                        {
+                            _tail = cur.Previous;
+                        }
+                        Lenght--;
+                        cur = cur.Previous;
+                    }
+                    cur = cur.Next;
+                }
+            }
+
         }
 
-        //public void AddToEnd(int[] array)
-        //{
+        public void AddToEnd(int[] array)
+        {
+            
+            DLinkedList added = new DLinkedList(array);
+            if(Lenght == 0)
+            {
+                _head = added._head;
+                _tail = added._tail;
+            }
+            else if (added.Lenght != 0)
+            {
+                _tail.Next = added._head;
+                added._head.Previous = _tail;
+                _tail = added._tail;
+                
+            }
+            Lenght += added.Lenght;
+        }
 
-        //}
+        public void AddToBiginning(int[] array)
+        {
+            DLinkedList added = new DLinkedList(array);
+            if (Lenght == 0)
+            {
+                _head = added._head;
+                _tail = added._tail;
+            }
+            else if (added.Lenght != 0)
+            {
+                DNode tmp = _head;
+                _head = added._head;
+                added._tail.Next = tmp;
+                tmp.Previous = added._tail;
 
-        //public void AddToBiginning(int[] array)
-        //{
+            }
+            Lenght += added.Lenght;
+        }
 
-        //}
+        public void AddTo(int idx, int[] array)
+        {
+            if(idx != 0 && (idx < 0 || idx >= Lenght))
+            {
+                throw new IndexOutOfRangeException();
+            }
+            DLinkedList added = new DLinkedList(array);
+            if (Lenght == 0)
+            {
+                _head = added._head;
+                _tail = added._tail;
+            }
+            else if (added.Lenght != 0)
+            {
+                DNode cur = GetDNodeByIndex(idx-1);
+                DNode tmp = cur.Next;
+                cur.Next = added._head;
+                added._head.Previous = cur;
+                added._tail.Next = tmp;
+                tmp.Previous = added._tail;
 
-        //public void AddTo(int idx, int[] array)
-        //{
 
-        //}
+            }
+            Lenght += added.Lenght;
+        }
 
-        //public void DeleteFromEnd(int n)
-        //{
+        public void DeleteFromEnd(int n)
+        {
+            if (n > Lenght || n < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (Lenght != 0 && n < Lenght)
+            {
+                DNode cur = GetDNodeByIndex(Lenght - (n+1));
+                cur.Next = null;
+                _tail = cur;
+                Lenght -= n;
+            }
+            if (n == Lenght)
+            {
+                _head = null;
+                _tail = null;
+                Lenght = 0;
+            }
+        }
 
-        //}
+        public void DeleteFromBiginning(int n)
+        {
+            if (n > Lenght || n < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (Lenght != 0 && n < Lenght)
+            {
+                DNode cur = GetDNodeByIndex(n);
+                cur.Previous = null;
+                _head = cur;
+                Lenght -= n;
+            }
+            if (n == Lenght)
+            {
+                _head = null;
+                _tail = null;
+                Lenght = 0;
+            }
+        }
 
-        //public void DeleteFromBiginning(int n)
-        //{
-
-        //}
-
-        //public void DeleteFrom(int idx, int n)
-        //{
-
-        //}
+        public void DeleteFrom(int idx, int n)
+        {
+            if (idx > Lenght || idx < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (n + idx > Lenght || n < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (idx != 0 && idx + n != Lenght)
+            {
+                DNode cur = GetDNodeByIndex(idx - 1);
+                DNode tmp = GetDNodeByIndex(idx + n);
+                cur.Next = tmp;
+                if (tmp != null)
+                {
+                    tmp.Previous = cur;
+                }
+                Lenght -= n;
+            }
+            else if (idx == 0)
+            {
+                DeleteFromBiginning(n);
+            }
+            else
+            {
+                DeleteFromEnd(n);
+            }
+        }
 
         public override bool Equals(object obj)
         {

@@ -339,148 +339,148 @@ namespace ArrayList.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        //[TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
-        //[TestCase(new int[] { 18, 36 }, new int[] { -13, 6, 15, 66, -3589 }, new int[] { 18, 36, -13, 6, 15, 66, -3589 })]
-        //[TestCase(new int[] { }, new int[] { }, new int[] { })]
-        //[TestCase(new int[] { 18, 36, -13, 6 }, new int[] { }, new int[] { 18, 36, -13, 6 })]
-        //public void AddArrayToEndTest(int[] array, int[] addedArray, int[] expectedArray)
-        //{
-        //    DLinkedList actual = new DLinkedList(array);
-        //    DLinkedList expected = new DLinkedList(expectedArray);
+        [TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
+        [TestCase(new int[] { 18, 36 }, new int[] { -13, 6, 15, 66, -3589 }, new int[] { 18, 36, -13, 6, 15, 66, -3589 })]
+        [TestCase(new int[] { }, new int[] { }, new int[] { })]
+        [TestCase(new int[] { 18, 36, -13, 6 }, new int[] { }, new int[] { 18, 36, -13, 6 })]
+        public void AddArrayToEndTest(int[] array, int[] addedArray, int[] expectedArray)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            DLinkedList expected = new DLinkedList(expectedArray);
 
-        //    actual.AddToEnd(addedArray);
-        //    Assert.AreEqual(expected, actual);
+            actual.AddToEnd(addedArray);
+            Assert.AreEqual(expected, actual);
 
-        //}
-
-
-        //[TestCase(new int[] { 4, 5, 6, 7 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
-        //[TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
-        //[TestCase(new int[] { }, new int[] { }, new int[] { })]
-        //[TestCase(new int[] { 18, 36, -13, 6 }, new int[] { }, new int[] { 18, 36, -13, 6 })]
-        //public void AddArrayToBiginningTest(int[] array, int[] addedArray, int[] expectedArray)
-        //{
-        //    DLinkedList actual = new DLinkedList(array);
-        //    DLinkedList expected = new DLinkedList(expectedArray);
-
-        //    actual.AddToBiginning(addedArray);
-        //    Assert.AreEqual(expected, actual);
-        //}
+        }
 
 
-        //[TestCase(new int[] { }, 0, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
-        //[TestCase(new int[] { 1, 2, 3 }, 1, new int[] { 4, 5, 6 }, new int[] { 1, 4, 5, 6, 2, 3 })]
-        //[TestCase(new int[] { }, 0, new int[] { }, new int[] { })]
-        //[TestCase(new int[] { 18, 36, -13, 6 }, 2, new int[] { }, new int[] { 18, 36, -13, 6 })]
-        //[TestCase(new int[] { 18, 36, -13, 6 }, 0, new int[] { }, new int[] { 18, 36, -13, 6 })]
-        //public void AddArrayToTest(int[] array, int idx, int[] addedArray, int[] expectedArray)
-        //{
-        //    DLinkedList actual = new DLinkedList(array);
-        //    DLinkedList expected = new DLinkedList(expectedArray);
+        [TestCase(new int[] { 4, 5, 6, 7 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { }, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
+        [TestCase(new int[] { }, new int[] { }, new int[] { })]
+        [TestCase(new int[] { 18, 36, -13, 6 }, new int[] { }, new int[] { 18, 36, -13, 6 })]
+        public void AddArrayToBiginningTest(int[] array, int[] addedArray, int[] expectedArray)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            DLinkedList expected = new DLinkedList(expectedArray);
 
-        //    actual.AddTo(idx, addedArray);
-        //    Assert.AreEqual(expected, actual);
-        //}
-
-
-        //[TestCase(new int[] { }, -1, new int[] { 18, 36, -13, 6, 15 })]
-        //[TestCase(new int[] { 1, 2, 3 }, 3, new int[] { 4, 5, 6 })]
-        //[TestCase(new int[] { 1, 2, 3 }, 400, new int[] { 4, 5, 6 })]
-        //public void AddArrayToNegativTest(int[] array, int idx, int[] addedArray)
-        //{
-        //    DLinkedList actual = new DLinkedList(array);
-        //    Assert.Throws<IndexOutOfRangeException>(() => actual.AddTo(idx, addedArray));
-        //}
+            actual.AddToBiginning(addedArray);
+            Assert.AreEqual(expected, actual);
+        }
 
 
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 1, 2, 3, 4 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 5, new int[] { 1, 2 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 6, new int[] { 1 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, new int[] { })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
-        //public void DeleteNElementsFromEndTest(int[] array, int number, int[] expectedArray)
-        //{
-        //    DLinkedList actual = new DLinkedList(array);
-        //    DLinkedList expected = new DLinkedList(expectedArray);
+        [TestCase(new int[] { }, 0, new int[] { 18, 36, -13, 6, 15 }, new int[] { 18, 36, -13, 6, 15 })]
+        [TestCase(new int[] { 1, 2, 3 }, 1, new int[] { 4, 5, 6 }, new int[] { 1, 4, 5, 6, 2, 3 })]
+        [TestCase(new int[] { }, 0, new int[] { }, new int[] { })]
+        [TestCase(new int[] { 18, 36, -13, 6 }, 2, new int[] { }, new int[] { 18, 36, -13, 6 })]
+        [TestCase(new int[] { 18, 36, -13, 6 }, 0, new int[] { }, new int[] { 18, 36, -13, 6 })]
+        public void AddArrayToTest(int[] array, int idx, int[] addedArray, int[] expectedArray)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            DLinkedList expected = new DLinkedList(expectedArray);
 
-        //    actual.DeleteFromEnd(number);
-        //    Assert.AreEqual(expected, actual);
-        //}
-
-
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 8)]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000)]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8)]
-        //public void DeleteNElementsFromEndNegativeTest(int[] array, int number)
-        //{
-        //    LinkedList actual = new LinkedList(array);
-        //    Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFromEnd(number));
-        //}
-
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 4, 5, 6, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1, new int[] { 2, 3, 4, 5, 6, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 6, new int[] { 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, new int[] { })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
-        //public void DeleteNElementsFromBiginning(int[] array, int number, int[] expectedArray)
-        //{
-        //    LinkedList actual = new LinkedList(array);
-        //    LinkedList expected = new LinkedList(expectedArray);
-
-        //    actual.DeleteFromBiginning(number);
-        //    Assert.AreEqual(expected, actual);
-        //}
-
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 8)]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000)]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8)]
-        //public void DeleteNElementsFromBiginningNegativeTest(int[] array, int number)
-        //{
-        //    LinkedList actual = new LinkedList(array);
-        //    Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFromBiginning(number));
-        //}
-
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 3, new int[] { 4, 5, 6, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 5, new int[] { 6, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 6, new int[] { 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 6, new int[] { 1 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 3, new int[] { 1, 2, 3, 4 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 2, new int[] { 1, 2, 3, 4, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, 1, new int[] { 1, 2, 3, 5, 6, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 2, 3, new int[] { 1, 2, 6, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 7, new int[] { })]
-
-        //public void DeleteNElmentsFromTest(int[] array, int idx, int number, int[] expectedArray)
-        //{
-        //    LinkedList actual = new LinkedList(array);
-        //    LinkedList expected = new LinkedList(expectedArray);
+            actual.AddTo(idx, addedArray);
+            Assert.AreEqual(expected, actual);
+        }
 
 
-        //    actual.DeleteFrom(idx, number);
-        //    Assert.AreEqual(expected, actual);
-        //}
+        [TestCase(new int[] { }, -1, new int[] { 18, 36, -13, 6, 15 })]
+        [TestCase(new int[] { 1, 2, 3 }, 3, new int[] { 4, 5, 6 })]
+        [TestCase(new int[] { 1, 2, 3 }, 400, new int[] { 4, 5, 6 })]
+        public void AddArrayToNegativTest(int[] array, int idx, int[] addedArray)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddTo(idx, addedArray));
+        }
 
 
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -2, 2, "Index")]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000, 1001, "Index")]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8, -45, "Index")]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 4, "Argument")]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 1001, "Argument")]
-        //[TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8, 2, "Index")]
-        //public void DeleteNElementsFromNegativTest(int[] array, int idx, int number, string excepyion)
-        //{
-        //    LinkedList actual = new LinkedList(array);
-        //    switch (excepyion)
-        //    {
-        //        case "Index":
-        //            Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteFrom(idx, number));
-        //            break;
-        //        case "Argument":
-        //            Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFrom(idx, number));
-        //            break;
-        //    }
-        //}
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 1, 2, 3, 4 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 5, new int[] { 1, 2 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 6, new int[] { 1 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, new int[] { })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        public void DeleteNElementsFromEndTest(int[] array, int number, int[] expectedArray)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            DLinkedList expected = new DLinkedList(expectedArray);
+
+            actual.DeleteFromEnd(number);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 8)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8)]
+        public void DeleteNElementsFromEndNegativeTest(int[] array, int number)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFromEnd(number));
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new int[] { 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1, new int[] { 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 6, new int[] { 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 7, new int[] { })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        public void DeleteNElementsFromBiginning(int[] array, int number, int[] expectedArray)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            DLinkedList expected = new DLinkedList(expectedArray);
+
+            actual.DeleteFromBiginning(number);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 8)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8)]
+        public void DeleteNElementsFromBiginningNegativeTest(int[] array, int number)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFromBiginning(number));
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 3, new int[] { 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 5, new int[] { 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 6, new int[] { 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1, 6, new int[] { 1 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 3, new int[] { 1, 2, 3, 4 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 2, new int[] { 1, 2, 3, 4, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 3, 1, new int[] { 1, 2, 3, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 2, 3, new int[] { 1, 2, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 0, new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 0, 7, new int[] { })]
+
+        public void DeleteNElmentsFromTest(int[] array, int idx, int number, int[] expectedArray)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            DLinkedList expected = new DLinkedList(expectedArray);
+
+
+            actual.DeleteFrom(idx, number);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -2, 2, "Index")]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 1000, 1001, "Index")]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8, -45, "Index")]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 4, "Argument")]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, 1001, "Argument")]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 }, -8, 2, "Index")]
+        public void DeleteNElementsFromNegativTest(int[] array, int idx, int number, string excepyion)
+        {
+            DLinkedList actual = new DLinkedList(array);
+            switch (excepyion)
+            {
+                case "Index":
+                    Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteFrom(idx, number));
+                    break;
+                case "Argument":
+                    Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFrom(idx, number));
+                    break;
+            }
+        }
     }
 }
